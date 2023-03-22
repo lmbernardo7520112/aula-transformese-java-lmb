@@ -1,5 +1,4 @@
-package br.com.transformese.spring01;
-
+package br.com.transformese.spring01.exercicioVendedor;
 public class Vendedor extends Funcionario {
     private double comissao;
     

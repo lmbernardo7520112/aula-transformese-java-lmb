@@ -1,4 +1,4 @@
-package br.com.transformese.spring01;
+package br.com.transformese.spring01.exercicioVendedor;
 
 public class Assistente extends Funcionario {
     public Assistente(String nome, String matricula, double salario_base) {

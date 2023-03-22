@@ -1,4 +1,4 @@
-package br.com.transformese.spring01;
+package br.com.transformese.spring01.exercicioVendedor;
 
 
 
