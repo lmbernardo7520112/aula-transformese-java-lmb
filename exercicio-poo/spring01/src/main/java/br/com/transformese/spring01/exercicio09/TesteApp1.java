@@ -1,5 +1,9 @@
 package br.com.transformese.spring01.exercicio09;
 
+
+import br.com.transformese.spring01.exercicioVendedor.Operario;
+import br.com.transformese.spring01.exercicioVendedor.Vendedor;
+
 public class TesteApp1 {
 
     public static void main(String[] args) {
@@ -22,6 +26,16 @@ public class TesteApp1 {
         System.out.println("Nome: " + pessoa2.getNome());
         System.out.println("Endereço: " + pessoa2.getEndereco());
         System.out.println("Telefone: " + pessoa2.getTelefone());
+
+        Empregado empregado = new Empregado("Empregado 1", "Rua B, 456", "87654321", 1, 2000.0, 10.0);
+
+        System.out.println("Nome: " + empregado.getNome());
+        System.out.println("Endereço: " + empregado.getEndereco());
+        System.out.println("Telefone: " + empregado.getTelefone());
+        System.out.println("Código do setor: " + empregado.getCodigoSetor());
+        System.out.println("Salário base: " + empregado.getSalarioBase());
+        System.out.println("Imposto: " + empregado.getImposto());
+        System.out.println("Salário líquido: " + empregado.calcularSalario());
 
         // Teste da classe Empregado
         Empregado empregado1 = new Empregado();
@@ -87,7 +101,32 @@ public class TesteApp1 {
         System.out.println("Imposto: " + adm2.getImposto());
         System.out.println("Ajuda de custo: " + adm2.getAjudaDeCusto());
         System.out.println("Salário líquido: " + adm2.calcularSalario());
+
+         // Teste da classe operario
+
+        System.out.println();
+        System.out.println("=== Teste da classe Operário ===");
+        Operario operario1 = new Operario("João Silva", "Rua A, 123", "(31) 98765-4321", 1, 2000.0, 10.0, 5000.0, 5.0);
+
+        System.out.println("Nome: " + operario1.getNome());
+        System.out.println("Endereço: " + operario1.getEndereco());
+        System.out.println("Telefone: " + operario1.getTelefone());
+        System.out.println("Código do setor: " + operario1.getCodigoSetor());
+        System.out.println("Salário base: " + operario1.getSalarioBase());
+        System.out.println("Imposto: " + operario1.getImposto());
+        System.out.println("Valor produção: " + operario1.getValorProducao());
+        System.out.println("Comissão: " + operario1.getComissao());
+        System.out.println("Salário: " + operario1.calcularSalario());
+
+
+        System.out.println();
+        System.out.println("=== Teste da classe Vendedor ===");
+        Vendedor vendedor = new Vendedor("João", "Rua A, 123", "555-1234", 1, 2000, 10, 5000, 5);
+        double salario = vendedor.calcularSalario();
+        System.out.println("Salário do vendedor " + vendedor.getNome() + ": R$" + salario);
     }
+
+    
 }
     
     

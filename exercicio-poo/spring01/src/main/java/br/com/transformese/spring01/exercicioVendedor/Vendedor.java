@@ -1,14 +1,25 @@
 package br.com.transformese.spring01.exercicioVendedor;
-public class Vendedor extends Funcionario {
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class Vendedor extends Empregado {
+    private double valorVendas;
     private double comissao;
-    
-    public Vendedor(String nome, String matricula, double salario_base, double comissao) {
-        super(nome, matricula, salario_base);
+
+    public Vendedor() {}
+
+    public Vendedor(String nome, String endereco, String telefone, int codigoSetor, double salarioBase, double imposto, double valorVendas, double comissao) {
+        super(nome, endereco, telefone, codigoSetor, salarioBase, imposto);
+        this.valorVendas = valorVendas;
         this.comissao = comissao;
     }
-    
-    @Override
-    public double calculaSalario() {
-        return getSalarioBase() + comissao;
+
+    public double calcularSalario() {
+        double salario = super.calcularSalario();
+        salario += (valorVendas * comissao / 100);
+        return salario;
     }
 }
+
