@@ -32,7 +32,7 @@
 				}
 			}
 			%>
-			<% if (operador != null) { %>
+			<% if (operador != null && !operador.isEmpty()) { %>
 				<p>O resultado é: <%= resultado %></p>
 			<% } else { %>
 				<p>Operador inválido.</p>
