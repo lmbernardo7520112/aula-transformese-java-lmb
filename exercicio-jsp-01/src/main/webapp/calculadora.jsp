@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="javax.servlet.http.HttpServletRequest" %>.
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,23 +15,45 @@
 			String operador = request.getParameter("operador");
 			double resultado = 0.0;
 			
-			switch (operador) {
-				case "+":
-                	resultado = numero_1 + numero_2;
-                	break;
-				case "-":
-                    resultado = numero_1 - numero_2;
-                    break;
-				case "*":
-                    resultado = numero_1 * numero_2;
-                    break;
-				case "/":
-                    resultado = numero_1 / numero_2;
-                    break;
+			if (operador != null) {
+				switch (operador) {
+					case "+":
+                		resultado = numero_1 + numero_2;
+                		break;
+					case "-":
+                    	resultado = numero_1 - numero_2;
+                    	break;
+					case "*":
+                    	resultado = numero_1 * numero_2;
+                    	break;
+					case "/":
+                    	resultado = numero_1 / numero_2;
+                    	break;
+				}
 			}
 			%>
-			<p>O resultado é: <%= resultado %></p>
-			<a href="index.html">Voltar</a>
-		</div>	
-</body>
+			<% if (operador != null) { %>
+				<p>O resultado é: <%= resultado %></p>
+			<% } else { %>
+				<p>Operador inválido.</p>
+			<% } %>
+			<a href="calculadora.html">Voltar</a>
+		</div>
+	</body>
 </html>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
