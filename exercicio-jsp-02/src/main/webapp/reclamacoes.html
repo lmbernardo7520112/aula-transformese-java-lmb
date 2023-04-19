@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Formulário de reclamações</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div class="container">
+		<form action="enviarReclamacao.jsp" method="post">
+			<label for="endereco">Endereço:</label>
+			<input type="text id="endereco" name="endereco"><br><br>
+			<label for="problema">Tipo de Problema:</label>
+			<select id="problema" name="problema">
+				<option value="buracos">Buracos</option>
+				<option value="praca">Praça</option>
+				<option value="policisamento">Policiamento</option>
+				<option value="outro">Outro</option>
+			</select><br><br>
+			<label for="descricao">Descrição do Problema:</label>
+				<textarea id="descricao" name="descricao" rows="8" cols="8"></textarea><br><br>
+				<input type="submit" value="Enviar reclamação">
+		</form>
+	</div>
+</body>
+</html>
