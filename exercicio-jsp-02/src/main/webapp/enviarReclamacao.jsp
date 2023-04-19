@@ -11,9 +11,10 @@
 	try {
 		FileWriter textoReclamacao = new FileWriter("reclamacoes.txt", true);
 		textoReclamacao.write("-------------------------------------------------\n");
+		textoReclamacao.write("ID:" + System.currentTimeMillis() + "\n");
 		textoReclamacao.write("Endereço:" + endereco +"\n");
 		textoReclamacao.write("Tipo de Problema:" + problema + "\n");
-		textoReclamacao.write("Descrição do problema;" + descricao + "\n");
+		textoReclamacao.write("Descrição do problema:" + descricao + "\n");
 		textoReclamacao.write("Data e Hora:" + dataHora + "\n");
 		textoReclamacao.write("-------------------------------------------------\n");
 		textoReclamacao.close();
@@ -23,14 +24,21 @@
 %>
 <%
 	String reclamacoes = "";
+	int lastId = 0;
 	try {
 		File file = new File("reclamacoes.txt");
 		if (file.exists()) {
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String line;
 			while ((line = br.readLine()) != null) {
-				reclamacoes += line + "<br>";
-				
+				if (line.startsWith("ID:")) {
+					long id = Long.parseLong(line.substring(3));
+					if (id > lastId) {
+						reclamacoes += line + "<br>";
+					}
+				} else {
+					reclamacoes += line + "<br>";
+				}	
 			}
 			
 			br.close();
