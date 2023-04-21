@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+/* Define a fonte e tamanho do corpo do texto */
+body {
+  font-family: 'Helvetica', sans-serif;
+  font-size: 16px;
+}
+
+body {
+	background: linear-gradient(to botton, #242424, #363636);
+}
+
+form {
+	border: 2px solid #fff;
+	border-radius: 5px;
+	padding: 20px;
+	background-color: #3c3c3c;
+	color: #fff;
+}
+
+input [type="text"],
+	select,
+		textarea {
+			border: none;
+			border-radius: 5px;
+			padding: 10px;
+			background-color: #6b6b6b;
+			color: #fff;
+			font-size: 16px
+		}
+		
+input [type="submit"] {
+	border: none;
+	border-radius: 5px;
+	padding: 10px;
+	background-color: #ed6c5c;
+	color: #fff;
+	font-size: 10px;
+	cursor: pointer;
+}
