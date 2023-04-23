@@ -59,7 +59,7 @@ public class ReclamacoesServlet extends HttpServlet {
         try {
         	File file = new File("reclamacoes.txt");
         	file.createNewFile();
-    		FileWriter textoReclamacao = new FileWriter("reclamacoes.txt", true);
+    		FileWriter textoReclamacao = new FileWriter("reclamacoes.txt");
     		textoReclamacao.write("-------------------------------------------------\n");
     		textoReclamacao.write("ID:" + System.currentTimeMillis() + "\n");
     		textoReclamacao.write("Endereço:" + endereco +"\n");
