@@ -56,6 +56,24 @@ public class ReclamacoesServlet extends HttpServlet {
         	e.printStackTrace();
         }
         
+        try {
+        	File file = new File("reclamacoes.txt");
+        	file.createNewFile();
+    		FileWriter textoReclamacao = new FileWriter("reclamacoes.txt", true);
+    		textoReclamacao.write("-------------------------------------------------\n");
+    		textoReclamacao.write("ID:" + System.currentTimeMillis() + "\n");
+    		textoReclamacao.write("Endereço:" + endereco +"\n");
+    		textoReclamacao.write("Tipo de Problema:" + problema + "\n");
+    		textoReclamacao.write("Descrição do problema:" + descricao + "\n");
+    		textoReclamacao.write("Data e Hora:" + dataHora + "\n");
+    		textoReclamacao.write("-------------------------------------------------\n");
+    		textoReclamacao.close();
+    		
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
+
+        
         String reclamacoes = "";
     	int lastId = 0;
     	try {
@@ -84,21 +102,7 @@ public class ReclamacoesServlet extends HttpServlet {
     		e.printStackTrace();
     	}
         
-        try {
-    		FileWriter textoReclamacao = new FileWriter("reclamacoes.txt", true);
-    		textoReclamacao.write("-------------------------------------------------\n");
-    		textoReclamacao.write("ID:" + System.currentTimeMillis() + "\n");
-    		textoReclamacao.write("Endereço:" + endereco +"\n");
-    		textoReclamacao.write("Tipo de Problema:" + problema + "\n");
-    		textoReclamacao.write("Descrição do problema:" + descricao + "\n");
-    		textoReclamacao.write("Data e Hora:" + dataHora + "\n");
-    		textoReclamacao.write("-------------------------------------------------\n");
-    		textoReclamacao.close();
-    		
-    	} catch (IOException e) {
-    		e.printStackTrace();
-    	}
-
+       
         
     	
         RequestDispatcher rd = request.getRequestDispatcher("reclamacoes.jsp");
