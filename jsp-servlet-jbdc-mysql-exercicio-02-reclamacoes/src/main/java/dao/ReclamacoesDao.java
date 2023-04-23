@@ -29,7 +29,7 @@ public class ReclamacoesDao {
 	}
 	
 	public int registraReclamacao(Reclamacoes reclamacao) throws ClassNotFoundException {
-		String INSERT_USERS_SQL = "INSERT INTO reclamacao" +
+		String INSERT_USERS_SQL = "INSERT INTO reclamacoes" +
 	            "  (id, endereco, tipoDoProblema, descricaoDoProblema) VALUES " +
 	            " (?, ?, ?, ?);";
 		int result = 0;
@@ -37,7 +37,7 @@ public class ReclamacoesDao {
         Class.forName("com.mysql.jdbc.Driver");
 
         try (Connection connection = DriverManager
-            .getConnection("jdbc:mysql://localhost:3306/db_jsp_servlet_reclamacoes?useSSL=false", "root", "root");
+            .getConnection("jdbc:mysql://localhost:3306/db_jsp_servlet_reclamacoes?useSSL=false", "root", "22345689Max_ber");
 
         	PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
             preparedStatement.setInt(1, 1);

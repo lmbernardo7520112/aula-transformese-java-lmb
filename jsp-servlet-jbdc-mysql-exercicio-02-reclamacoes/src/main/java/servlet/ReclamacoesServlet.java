@@ -3,8 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.io.*;
 
-
-
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -45,28 +44,19 @@ public class ReclamacoesServlet extends HttpServlet {
         String descricao = request.getParameter("descricao");
         String dataHora = new java.util.Date().toString();
         
-        Reclamacoes reclamacao = new Reclamacoes(endereco, descricao, TipoProblema.valueOf(problema));; 
+        Reclamacoes reclamacao = new Reclamacoes(endereco, TipoProblema.valueOf(problema), descricao); 
 	
         reclamacao.setEndereco(endereco);
         reclamacao.setTipoDoProblema(TipoProblema.valueOf(problema));
         reclamacao.getDescricaoDoProblema();
         
         try {
-    		FileWriter textoReclamacao = new FileWriter("reclamacoes.txt", true);
-    		textoReclamacao.write("-------------------------------------------------\n");
-    		textoReclamacao.write("ID:" + System.currentTimeMillis() + "\n");
-    		textoReclamacao.write("Endereço:" + endereco +"\n");
-    		textoReclamacao.write("Tipo de Problema:" + problema + "\n");
-    		textoReclamacao.write("Descrição do problema:" + descricao + "\n");
-    		textoReclamacao.write("Data e Hora:" + dataHora + "\n");
-    		textoReclamacao.write("-------------------------------------------------\n");
-    		textoReclamacao.close();
-    		
-    	} catch (IOException e) {
-    		e.printStackTrace();
-    	}
-
-    	String reclamacoes = "";
+        	reclamacoesDao.registraReclamacao(reclamacao);
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
+        
+        String reclamacoes = "";
     	int lastId = 0;
     	try {
     		File file = new File("reclamacoes.txt");
@@ -95,12 +85,29 @@ public class ReclamacoesServlet extends HttpServlet {
     	}
         
         try {
-        	reclamacoesDao.registraReclamacao(reclamacao);
-        } catch (Exception e) {
-        	e.printStackTrace();
-        }
+    		FileWriter textoReclamacao = new FileWriter("reclamacoes.txt", true);
+    		textoReclamacao.write("-------------------------------------------------\n");
+    		textoReclamacao.write("ID:" + System.currentTimeMillis() + "\n");
+    		textoReclamacao.write("Endereço:" + endereco +"\n");
+    		textoReclamacao.write("Tipo de Problema:" + problema + "\n");
+    		textoReclamacao.write("Descrição do problema:" + descricao + "\n");
+    		textoReclamacao.write("Data e Hora:" + dataHora + "\n");
+    		textoReclamacao.write("-------------------------------------------------\n");
+    		textoReclamacao.close();
+    		
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
+
+        
+    	
+        RequestDispatcher rd = request.getRequestDispatcher("reclamacoes.jsp");
         request.setAttribute("reclamacoes", reclamacoes);
+        request.getRequestDispatcher("reclamacoesdetails.jsp").forward(request, response);
+       /*rd.forward(request, response);
         response.sendRedirect("reclamacoesdetails.jsp");
+        response.sendRedirect("reclamacoesdetails.jsp");
+         * request.getRequestDispatcher("reclamacoes.jsp").forward(request, response);*/
 	}
 	
 

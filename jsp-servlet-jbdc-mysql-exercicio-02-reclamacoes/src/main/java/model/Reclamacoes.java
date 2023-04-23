@@ -6,10 +6,11 @@ public class Reclamacoes implements Serializable {
 
 	private static final long serialVersionUID = 1L;
     private String endereco;
-    private String descricaoDoProblema;;
-    private TipoProblema tipoDoProblema;;
+    private TipoProblema tipoDoProblema;
+    private String descricaoDoProblema;
+   
     
-    public Reclamacoes(String endereco, String descricaoDoProblema, TipoProblema tipoDoProblema) {
+    public Reclamacoes(String endereco, TipoProblema tipoDoProblema, String descricaoDoProblema) {
         this.endereco = endereco;
         this.descricaoDoProblema = descricaoDoProblema;
         this.tipoDoProblema = tipoDoProblema;

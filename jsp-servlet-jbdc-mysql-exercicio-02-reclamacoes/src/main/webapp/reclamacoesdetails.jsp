@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.io.*" %>
 <%@ page import="dao.*"%>
 <%@ page import="servlet.*" %>
@@ -16,8 +15,8 @@
 <body>
 	<div class="container">
 		<p>Reclamação enviada com sucesso!</p>
-		<% String reclamacao = (String) request.getAttribute("reclamacao"); %>
-		<p><%= reclamacao %></p>
+		<% String reclamacoes = (String) request.getAttribute("reclamacoes"); %>
+		<p><%= reclamacoes %></p>
 		<a href="reclamacoes.jsp">Voltar</a>
 	</div>
 </body>
