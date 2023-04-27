@@ -40,5 +40,5 @@ public class TaskController {
     public ResponseEntity<Boolean> deleteTask(@PathVariable Long id) {
     taskService.deleteTask(id);
     return ResponseEntity.ok(true);
-}
+    }   
 }

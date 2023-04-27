@@ -10,11 +10,17 @@ public class Task {
     private Long id;
     private String task;
     private boolean completed;
+
+    
   
+    public Task() {
+    }
+
     public Task(String task, boolean completed) {
         this.task = task;
         this.completed = completed;
     }
+    
     public Long getId() {
         return id;
     }
