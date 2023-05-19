@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Todo List</h1>
+        <form action="#" th:action="@{/api/v1/tasks/}" th:object="${newTask}" method="post">
+            <div class="form-group">
+                <label for="taskInput">Task:</label>
+                <input type="text" id="taskInput" class="form-control" th:field="*{task}">
+            </div>
+            <button type="submit" class="btn btn-primary">Add Task</button>
+        </form>
+        <br>
+        <h2>All Tasks</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Task</th>
+                    <th>Completed</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="task : ${tasks}">
+                    <td th:text="${task.id}"></td>
+                    <td th:text="${task.task}"></td>
+                    <td th:text="${task.completed} ? 'Yes' : 'No'"></td>
+                    <td>
+                        <a th:href="@{/api/v1/tasks/{id}/edit(id=${task.id})}">Edit</a> |
+                        <a th:href="@{/api/v1/tasks/{id}/delete(id=${task.id})}">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
