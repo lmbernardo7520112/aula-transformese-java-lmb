@@ -3,42 +3,51 @@ package br.transformese.serasa.todolist.controllers;
 import br.transformese.serasa.todolist.models.Task;
 import br.transformese.serasa.todolist.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-  
+
 import java.util.List;
-  
+
 @Controller
 @RequestMapping("/api/v1/tasks")
 public class TaskController {
-  
+
     @Autowired
     private TaskService taskService;
+
     @GetMapping("/")
-    public ResponseEntity<List<Task>> getAllTasks() {
-        return ResponseEntity.ok(taskService.getAllTask());
+    public String getAllTasks(Model model) {
+        List<Task> tasks = taskService.getAllTask();
+        Task newTask = new Task();
+        model.addAttribute("tasks", tasks);
+        model.addAttribute("newTask", newTask);
+        return "index";
     }
-    @GetMapping("/completed")
-    public ResponseEntity<List<Task>> getAllCompletedTasks() {
-        return ResponseEntity.ok(taskService.findAllCompletedTask());
-    }
-    @GetMapping("/incomplete")
-    public ResponseEntity<List<Task>> getAllIncompleteTasks() {
-        return ResponseEntity.ok(taskService.findAllInCompleteTask());
-    }
+
     @PostMapping("/")
-    public ResponseEntity<Task> createTask(@RequestBody Task task) {
-        return ResponseEntity.ok(taskService.createNewTask(task));
+    public String createTask(@ModelAttribute("newTask") Task task) {
+        taskService.createNewTask(task);
+        return "redirect:/api/v1/tasks/";
     }
-    @PutMapping("/{id}")
-    public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task task) {
+
+    @GetMapping("/{id}/edit")
+    public String editTask(@PathVariable Long id, Model model) {
+        Task task = taskService.findTaskById(id);
+        model.addAttribute("task", task);
+        return "edit";
+    }
+
+    @PostMapping("/{id}/update")
+    public String updateTask(@PathVariable Long id, @ModelAttribute("task") Task task) {
         task.setId(id);
-        return ResponseEntity.ok(taskService.updateTask(task));
+        taskService.updateTask(task);
+        return "redirect:/api/v1/tasks/";
     }
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteTask(@PathVariable Long id) {
-    taskService.deleteTask(id);
-    return ResponseEntity.ok(true);
-    }   
+
+    @GetMapping("/{id}/delete")
+    public String deleteTask(@PathVariable Long id) {
+        taskService.deleteTask(id);
+        return "redirect:/api/v1/tasks/";
+    }
 }
