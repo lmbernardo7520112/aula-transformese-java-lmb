@@ -1,8 +1,12 @@
 package br.transformese.serasa.todolist.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
   
 @Entity
+@Getter
+@Setter
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +31,7 @@ public class Task {
     public void setId(Long id) {
         this.id = id;
     }
-    public String getTask() {
+    /*public String getTask() {
         return task;
     }
     public void setTask(String task) {
@@ -38,5 +42,5 @@ public class Task {
     }
     public void setCompleted(boolean completed) {
         this.completed = completed;
-    }
+    }*/
 }
