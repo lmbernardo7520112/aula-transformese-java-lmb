@@ -34,8 +34,9 @@ public class TaskController {
     }
 
     @PostMapping("")
-    public String createTask(@ModelAttribute("newTask") Task task) {
+    public String createTask(Task task, Model model) {
         taskService.createNewTask(task);
+        model.addAttribute("newTask", task);
         return "redirect:/api/v1/tasks";
     }
 
