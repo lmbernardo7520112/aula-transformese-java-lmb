@@ -8,13 +8,11 @@
 <body>
     <div class="container">
         <h1>Todo List</h1>
-        <form  th:object="${newTask}" th:action="@{/save}" method="post">
+        <form th:object="${newTask}" th:action="@{/tasks}" method="post">
             <div class="form-group">
                 <label for="taskInput">Task:</label>
-                <input type="text" th:field="*{name}" />
-                <input type="text" id="taskInput" class="form-control" th:field="*{description}">
-                
-                
+                <input type="text" id="taskInput" class="form-control" th:field="*{task}" />
+                <input type="text" class="form-control" th:field="*{description}" />
             </div>
             <button type="submit" class="btn btn-primary">Add Task</button>
         </form>
@@ -32,11 +30,11 @@
             <tbody>
                 <tr th:each="task : ${tasks}">
                     <td th:text="${task.id}"></td>
-                    <td th:text="${task.description}"></td>
+                    <td th:text="${task.task}"></td>
                     <td th:text="${task.completed ? 'Yes' : 'No'}"></td>
                     <td>
-                        <a th:href="@{/api/v1/tasks/{id}/edit(id=${task.id})}">Edit</a> |
-                        <a th:href="@{/api/v1/tasks/{id}/delete(id=${task.id})}">Delete</a>
+                        <a th:href="@{/tasks/{id}/edit(id=${task.id})}">Edit</a> |
+                        <a th:href="@{/tasks/{id}/delete(id=${task.id})}">Delete</a>
                     </td>
                 </tr>
             </tbody>
