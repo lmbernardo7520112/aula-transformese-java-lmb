@@ -5,56 +5,38 @@ import br.transformese.serasa.todolist.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
 @RequestMapping("/api/v1/tasks")
-//@RequestMapping("/api/v1/tasks")
 public class TaskController {
 
+    private final TaskService taskService;
+
     @Autowired
-    private TaskService taskService;
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
+    }
 
-    
-
-    /*@GetMapping("")
+    @GetMapping("")
     public String getAllTasks(Model model) {
         List<Task> tasks = taskService.getAllTask();
         Task newTask = new Task();
         model.addAttribute("tasks", tasks);
         model.addAttribute("newTask", newTask);
-        //model.addAttribute("newTask", new Task());
-        return "index";
-    }*/
-
-    @GetMapping("")
-    public String getAllTasks(Model model) {
-    List<Task> tasks = taskService.getAllTask();
-    Task newTask = new Task();
-    model.addAttribute("tasks", tasks);
-    model.addAttribute("newTask", newTask);
-    return "index";
-}
-
-    @GetMapping("/")
-    public String index(@ModelAttribute("newTask") Task newTask) {
         return "index";
     }
 
-    /*@PostMapping("")
-    public String createTask(Task task, Model model) {
-        taskService.createNewTask(task);
-        model.addAttribute("newTask", task);
-        return "redirect:/api/v1/tasks";
+    /*@GetMapping("/")
+    public String index(@ModelAttribute("newTask") Task newTask) {
+        return "index";
     }*/
 
     @PostMapping("")
     public String createTask(@ModelAttribute("newTask") Task task, Model model) {
         taskService.createNewTask(task);
-        model.addAttribute("newTask", new Task());
         return "redirect:/api/v1/tasks";
     }
 
