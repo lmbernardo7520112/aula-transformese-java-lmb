@@ -10,7 +10,7 @@ import lombok.Setter;
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    private Long id;
     private String task;
     private String description;
     private boolean completed;
