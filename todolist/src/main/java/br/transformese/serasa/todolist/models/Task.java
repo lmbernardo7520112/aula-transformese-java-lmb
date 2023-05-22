@@ -14,6 +14,7 @@ public class Task {
     private String task;
     private String description;
     private boolean completed;
+    private String status; 
 
     public Task() {
     }
@@ -61,6 +62,13 @@ public class Task {
             this.completed = completed;
         }
 
+        public String getStatus() {
+            return status;
+        }
+        
+        public void setStatus(String status) {
+            this.status = status;
+        }
         /*public void getTaskId(Object id2) {
         }*/
 }

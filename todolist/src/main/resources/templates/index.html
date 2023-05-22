@@ -23,7 +23,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Task</th>
-                    <th>Completed</th>
+                    <th>Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -31,9 +31,10 @@
                 <tr th:each="task : ${tasks}">
                     <td th:text="${task.id}"></td>
                     <td th:text="${task.task}"></td>
-                    <td>
+                    <td th:text="${task.status}"></td>
+                    <!-- <td>
                         <input type="checkbox" th:checked="${task.completed}" th:disabled="${task.completed}" />
-                    </td>
+                    </td> -->
                     <td>
                         <a th:href="@{/api/v1/tasks/{id}/edit(id=${task.id})}">Edit</a> |
                         <a th:href="@{/api/v1/tasks/{id}/delete(id=${task.id})}">Delete</a>

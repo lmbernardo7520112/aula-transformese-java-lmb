@@ -51,7 +51,7 @@ public class TaskController {
     @PostMapping("/{id}")
     public String updateTask(@PathVariable("id") Long id, @ModelAttribute("Task") Task updatedTask) {
     //Verifing the value of task.id
-    System.out.println("Task ID: " + id);
+    //System.out.println("Task ID: " + id);
     Task existingTask = taskService.findTaskById(id);
     if (existingTask == null) {
         throw new IllegalArgumentException("Task not found");
@@ -61,6 +61,7 @@ public class TaskController {
     existingTask.setTask(updatedTask.getTask());
     existingTask.setDescription(updatedTask.getDescription());
     existingTask.setCompleted(updatedTask.isCompleted());
+    existingTask.setStatus(updatedTask.getStatus());
     taskService.updateTask(existingTask);
     return "redirect:/api/v1/tasks";
 }
