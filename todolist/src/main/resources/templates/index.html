@@ -12,12 +12,22 @@
             <div class="form-group">
                 <label for="taskInput">Task:</label>
                 <input type="text" id="taskInput" class="form-control" th:field="*{task}" />
+                <label for="taskInput">Description:</label>
                 <input type="text" class="form-control" th:field="*{description}" />
             </div>
             <button type="submit" class="btn btn-primary">Add Task</button>
         </form>
         <br>
         <h2>All Tasks</h2>
+        <div class="form-group">
+            <label for="statusFilter">Filter by Status:</label>
+            <select id="statusFilter" class="form-control" onchange="applyStatusFilter(this.value)">
+                <option value="">All</option>
+                <option value="pending">Pending</option>
+                <option value="in_progress">In Progress</option>
+                <option value="concluded">Concluded</option>
+            </select>
+        </div>
         <table class="table">
             <thead>
                 <tr>
@@ -43,5 +53,18 @@
             </tbody>
         </table>
     </div>
+    <script>
+        function applyStatusFilter(status) {
+            const tableRows = document.querySelectorAll('tbody tr');
+            tableRows.forEach(row => {
+                const rowStatus = row.querySelector('td:nth-child(3)').textContent.trim();
+                if (status === '' || rowStatus === status) {
+                    row.style.display = 'table-row';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+    </script>
 </body>
 </html>
