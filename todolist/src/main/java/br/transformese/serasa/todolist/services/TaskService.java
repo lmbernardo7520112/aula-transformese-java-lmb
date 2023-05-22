@@ -9,6 +9,8 @@ import java.util.List;
 
 @Service
 public class TaskService {
+
+    
     private final TaskRepository taskRepository;
 
     @Autowired
@@ -20,7 +22,7 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-    public List<Task> getAllTask() {
+    public List<Task> getAllTasks() {
         return taskRepository.findAll();
     }
 
