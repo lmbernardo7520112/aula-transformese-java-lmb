@@ -12,8 +12,10 @@
             <div class="form-group">
                 <label for="taskInput">Task:</label>
                 <input type="text" id="taskInput" class="form-control" th:field="*{task}" />
+                <p th:if="${#fields.hasErrors('task')}" th:errors="*{task}" class="text-danger"></p>
                 <label for="taskInput">Description:</label>
                 <input type="text" class="form-control" th:field="*{description}" />
+                <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></p>
             </div>
             <button type="submit" class="btn btn-primary">Add Task</button>
         </form>

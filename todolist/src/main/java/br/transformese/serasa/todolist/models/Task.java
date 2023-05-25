@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 @Entity
 @Getter
 @Setter
@@ -11,7 +14,13 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank(message = "Task name is required")
+    @Size(max = 255, message = "Task name cannot exceed 255 characters")
     private String task;
+
+    @NotBlank(message = "Task name is required")
+    @Size(max = 255, message = "Task name cannot exceed 255 characters")
     private String description;
     private boolean completed;
     private String status; 

@@ -32,11 +32,13 @@
             <div class="form-group">
                 <label for="task">Task:</label>
                 <input type="text" id="task" class="form-control" th:field="*{task}" required>
+                <p th:if="${#fields.hasErrors('task')}" th:errors="*{task}" class="text-danger"></p>
             </div>
 
             <div class="form-group">
                 <label for="description">Description:</label>
                 <input type="text" id="description" class="form-control" th:field="*{description}">
+                <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></p>
             </div>
 
             <!-- <div class="form-group">
