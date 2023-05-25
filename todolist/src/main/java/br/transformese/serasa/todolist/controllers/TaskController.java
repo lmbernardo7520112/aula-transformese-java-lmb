@@ -3,8 +3,11 @@ package br.transformese.serasa.todolist.controllers;
 import br.transformese.serasa.todolist.models.Task;
 import br.transformese.serasa.todolist.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
   
 import java.util.List;
@@ -15,9 +18,17 @@ public class TaskController {
   
     @Autowired
     private TaskService taskService;
-    @GetMapping("/")
-    public ResponseEntity<List<Task>> getAllTasks() {
+
+    @GetMapping("")
+    /*public ResponseEntity<List<Task>> getAllTasks() {
         return ResponseEntity.ok(taskService.getAllTask());
+    }*/
+    public String getAllTasks(Pageable pageable, Model model) {
+        Page<Task> tasks = taskService.getAllTasks(pageable);
+        Task newTask = new Task();
+        model.addAttribute("tasks", tasks);
+        model.addAttribute("newTask", newTask);
+        return "index";
     }
     @GetMapping("/completed")
     public ResponseEntity<List<Task>> getAllCompletedTasks() {
