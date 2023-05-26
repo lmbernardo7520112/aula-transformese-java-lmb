@@ -2,6 +2,7 @@ package br.transformese.serasa.todolist.controllers;
 
 import br.transformese.serasa.todolist.models.Task;
 import br.transformese.serasa.todolist.services.TaskService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,11 +22,30 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @GetMapping("/")
+    /*@GetMapping("/")
     public String getIndexPage(Model model, Pageable pageable) {
         Page<Task> tasks = taskService.getAllTasks(pageable);
         Task newTask = new Task();
         model.addAttribute("tasks", tasks);
+        model.addAttribute("newTask", newTask);
+        return "index";
+    }
+
+    public String getIndexPage(Model model, Pageable pageable) {
+        Page<Task> tasks = taskService.getAllTasks(pageable);
+        Task newTask = new Task();
+        model.addAttribute("tasks", tasks.getContent());  // Pass the content of the tasks page
+        model.addAttribute("newTask", newTask);
+        model.addAttribute("currentPage", tasks.getNumber() + 1);
+        model.addAttribute("totalPages", tasks.getTotalPages());
+        return "index";
+    }*/
+
+    @GetMapping("/")
+    public String getIndexPage(Model model, Pageable pageable) {
+        Page<Task> tasks = taskService.getAllTasks(pageable);
+        Task newTask = new Task();
+        model.addAttribute("tasks", tasks.getContent()); // Pass the task content to the model
         model.addAttribute("newTask", newTask);
         return "index";
     }
@@ -36,22 +56,16 @@ public class TaskController {
         return ResponseEntity.ok(tasks);
     }
 
-    @GetMapping("/completed")
-    public ResponseEntity<Page<Task>> getAllCompletedTasks(Pageable pageable) {
-        Page<Task> tasks = taskService.getAllCompletedTasks(pageable);
-        return ResponseEntity.ok(tasks);
-    }
-
-    @GetMapping("/incomplete")
-    public ResponseEntity<Page<Task>> getAllIncompleteTasks(Pageable pageable) {
-        Page<Task> tasks = taskService.getAllIncompleteTasks(pageable);
-        return ResponseEntity.ok(tasks);
-    }
-
-    @PostMapping("/")
+    /*@PostMapping("/")
     public ResponseEntity<Task> createTask(@RequestBody Task task) {
         Task newTask = taskService.createNewTask(task);
         return ResponseEntity.ok(newTask);
+    }*/
+
+    @PostMapping("")
+    public String createTask(@ModelAttribute("newTask") Task task) {
+        taskService.createNewTask(task);
+        return "redirect:/";
     }
 
     @PutMapping("/{id}")
@@ -66,4 +80,5 @@ public class TaskController {
         return ResponseEntity.ok(true);
     }
 }
+
 

@@ -22,7 +22,7 @@
 
         <!--<form th:action="@{'/api/v1/tasks/' + ${task.id} + '/'}" th:object="${task}" method="post"> 
         <form th:action="@{'/api/v1/tasks/' + ${task.id}}" th:object="${task}" method="post"> -->
-        <form th:action="@{/api/v1/tasks/{id}(id=${task.id})}" th:object="${task}" method="post">
+        <form th:action="@{/tasks/{id}(id=${task.id})}" th:object="${task}" method="post">
 
             <div class="form-group">
                 <label for="Id">Id:</label>

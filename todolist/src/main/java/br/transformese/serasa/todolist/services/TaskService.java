@@ -21,15 +21,25 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
+    
+
     public Page<Task> getAllTasks(Pageable pageable) {
         return taskRepository.findAll(pageable);
     }
 
-    public Page<Task> getAllCompletedTasks(Pageable pageable) {
+    /*public Page<Task> getAllCompletedTasks(Pageable pageable) {
         return taskRepository.findByCompletedTrue(pageable);
     }
 
     public Page<Task> getAllIncompleteTasks(Pageable pageable) {
+        return taskRepository.findByCompletedFalse(pageable);
+    }*/
+
+    public Page<Task> getAllTasksCompleted(Pageable pageable) {
+        return taskRepository.findByCompletedTrue(pageable);
+    }
+
+    public Page<Task> getAllTasksIncomplete(Pageable pageable) {
         return taskRepository.findByCompletedFalse(pageable);
     }
 

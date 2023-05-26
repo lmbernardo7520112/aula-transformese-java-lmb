@@ -1,85 +1,99 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Todo List</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task List</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
+
 <body>
-    <div class="container">
-        <h1>Todo List</h1>
-        <form th:object="${newTask}" th:action="@{/api/v1/tasks}" method="post">
-            <div class="form-group">
-                <label for="taskInput">Task:</label>
-                <input type="text" id="taskInput" class="form-control" th:field="*{task}" />
-                <p th:if="${#fields.hasErrors('task')}" th:errors="*{task}" class="text-danger"></p>
-                <label for="taskInput">Description:</label>
-                <input type="text" class="form-control" th:field="*{description}" />
-                <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></p>
-            </div>
-            <button type="submit" class="btn btn-primary">Add Task</button>
+
+  <div class="container mt-5">
+
+    <!-- Task Creation Form -->
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <h2>Create New Task</h2>
+        <form action="/tasks" method="post" th:object="${newTask}">
+          <div class="form-group">
+            <label for="task">Task</label>
+            <input type="text" class="form-control" id="task" name="task" th:field="*{task}" required>
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" name="description" th:field="*{description}" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Task</button>
         </form>
-        <br>
-        <h2>All Tasks</h2>
-        <div class="form-group">
-            <label for="statusFilter">Filter by Status:</label>
-            <select id="statusFilter" class="form-control" onchange="applyStatusFilter(this.value)">
-                <option value="">All</option>
-                <option value="pending">Pending</option>
-                <option value="in_progress">In Progress</option>
-                <option value="concluded">Concluded</option>
-            </select>
+      </div>
+    </div>
+
+    <!-- Task List -->
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Task List</h2>
+
+        <!-- Task Filters -->
+        <div class="mb-3">
+          <label for="filter">Filter by Status:</label>
+          <select class="form-control" id="filter" name="filter">
+            <option value="all">All</option>
+            <option value="completed">Completed</option>
+            <option value="incomplete">Incomplete</option>
+          </select>
         </div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Task</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="task : ${tasks.content}">
-                    <td th:text="${task.id}"></td>
-                    <td th:text="${task.task}"></td>
-                    <td th:text="${task.status}"></td>
-                    <td>
-                        <a th:href="@{/api/v1/tasks/{id}/edit(id=${task.id})}">Edit</a> |
-                        <a th:href="@{/api/v1/tasks/{id}/delete(id=${task.id})}">Delete</a>
-                    </td>
-                </tr>
-            </tbody>
+
+        <!-- Task Table -->
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Task</th>
+              <th>Completed</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="task : ${page.content}">
+              <td th:text="${task.id}"></td>
+              <td th:text="${task.task}"></td>
+              <td th:text="${task.completed} ? 'Yes' : 'No'"></td>
+            </tr>
+          </tbody>
         </table>
 
-        <!-- Pagination links -->
-        <div class="pagination">
-            <ul>
-                <li th:class="${tasks.firstPage} ? 'disabled' : ''">
-                    <a th:href="@{${tasks.number} > 1} ? '/api/v1/tasks?page=${tasks.number - 1}' : ''">Previous</a>
-                </li>
-                <li th:each="page : ${tasks.navigatePages}">
-                    <a th:href="@{${page.number} != ${tasks.number}} ? '/api/v1/tasks?page=${page.number}' : ''"
-                       th:text="${page.number}" th:class="${page.number == tasks.number} ? 'active' : ''"></a>
-                </li>
-                <li th:class="${tasks.lastPage} ? 'disabled' : ''">
-                    <a th:href="@{${tasks.number} < ${tasks.totalPages}} ? '/api/v1/tasks?page=${tasks.number + 1}' : ''">Next</a>
-                </li>
-            </ul>
-        </div>
+        <!-- Pagination -->
+        <nav aria-label="Task navigation">
+          <ul class="pagination">
+            <li class="page-item" th:classappend="${page.currentPage == 1} ? 'disabled'">
+              <a class="page-link" th:href="${page.getUrlForPage(1)}">First</a>
+            </li>
+            <li class="page-item" th:classappend="${page.currentPage == 1} ? 'disabled'">
+              <a class="page-link" th:href="${page.getUrlForPage(page.currentPage - 1)}">Previous</a>
+            </li>
+            <li class="page-item" th:classappend="${page.currentPage == page.totalPages} ? 'disabled'">
+              <a class="page-link" th:href="${page.getUrlForPage(page.currentPage + 1)}">Next</a>
+            </li>
+            <li class="page-item" th:classappend="${page.currentPage == page.totalPages} ? 'disabled'">
+              <a class="page-link" th:href="${page.getUrlForPage(page.totalPages)}">Last</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
-    <script>
-        function applyStatusFilter(status) {
-            const tableRows = document.querySelectorAll('tbody tr');
-            tableRows.forEach(row => {
-                const rowStatus = row.querySelector('td:nth-child(3)').textContent.trim();
-                if (status === '' || rowStatus === status) {
-                    row.style.display = 'table-row';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-        }
-    </script>
+
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
 </body>
+
 </html>
+
+
+
+
+
