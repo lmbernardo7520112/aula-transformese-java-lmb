@@ -1,56 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Todo List</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Todo List</h1>
-        <form th:object="${newTask}" th:action="@{/api/v1/tasks}" method="post">
-            <!-- Task input fields -->
-        </form>
-        <br>
-        <h2>All Tasks</h2>
-        <!-- Status filter dropdown -->
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Task</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="task : ${tasks.content}">
-                    <td th:text="${task.id}"></td>
-                    <td th:text="${task.task}"></td>
-                    <td th:text="${task.status}"></td>
-                    <!-- Edit and delete links -->
-                </tr>
-            </tbody>
-        </table>
+    <h1>Todo List</h1>
 
-        <!-- Pagination links -->
-        <div class="pagination">
-            <ul>
-                <li th:class="${tasks.firstPage} ? 'disabled' : ''">
-                    <a th:href="@{${tasks.number} > 1} ? '/api/v1/tasks?page=${tasks.number - 1}' : ''">Previous</a>
-                </li>
-                <li th:each="page : ${tasks.navigatePages}">
-                    <a th:href="@{${page.number} != ${tasks.number}} ? '/api/v1/tasks?page=${page.number}' : ''"
-                       th:text="${page.number}" th:class="${page.number == tasks.number} ? 'active' : ''"></a>
-                </li>
-                <li th:class="${tasks.lastPage} ? 'disabled' : ''">
-                    <a th:href="@{${tasks.number} < ${tasks.totalPages}} ? '/api/v1/tasks?page=${tasks.number + 1}' : ''">Next</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <script>
-        // Status filter JavaScript code
-    </script>
+    <form method="post" action="/api/v1/tasks">
+        <input type="text" name="task" placeholder="New Task" required>
+        <button type="submit">Add Task</button>
+    </form>
+
+    <h2>All Tasks</h2>
+    <ul>
+        <th:block th:each="task : ${tasks.content}">
+            <li th:text="${task.task}"></li>
+        </th:block>
+    </ul>
 </body>
 </html>

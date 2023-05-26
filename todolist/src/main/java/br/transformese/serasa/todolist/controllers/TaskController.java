@@ -9,47 +9,61 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-  
-import java.util.List;
-  
-@Controller
-@RequestMapping("/api/v1/tasks")
-public class TaskController {
-  
-    @Autowired
-    private TaskService taskService;
 
-    @GetMapping("")
-    /*public ResponseEntity<List<Task>> getAllTasks() {
-        return ResponseEntity.ok(taskService.getAllTask());
-    }*/
-    public String getAllTasks(Pageable pageable, Model model) {
+@Controller
+@RequestMapping("/tasks")
+public class TaskController {
+
+    private final TaskService taskService;
+
+    @Autowired
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
+    }
+
+    @GetMapping("/")
+    public String getIndexPage(Model model, Pageable pageable) {
         Page<Task> tasks = taskService.getAllTasks(pageable);
         Task newTask = new Task();
         model.addAttribute("tasks", tasks);
         model.addAttribute("newTask", newTask);
         return "index";
     }
+
+    @GetMapping
+    public ResponseEntity<Page<Task>> getAllTasks(Pageable pageable) {
+        Page<Task> tasks = taskService.getAllTasks(pageable);
+        return ResponseEntity.ok(tasks);
+    }
+
     @GetMapping("/completed")
-    public ResponseEntity<List<Task>> getAllCompletedTasks() {
-        return ResponseEntity.ok(taskService.findAllCompletedTask());
+    public ResponseEntity<Page<Task>> getAllCompletedTasks(Pageable pageable) {
+        Page<Task> tasks = taskService.getAllCompletedTasks(pageable);
+        return ResponseEntity.ok(tasks);
     }
+
     @GetMapping("/incomplete")
-    public ResponseEntity<List<Task>> getAllIncompleteTasks() {
-        return ResponseEntity.ok(taskService.findAllInCompleteTask());
+    public ResponseEntity<Page<Task>> getAllIncompleteTasks(Pageable pageable) {
+        Page<Task> tasks = taskService.getAllIncompleteTasks(pageable);
+        return ResponseEntity.ok(tasks);
     }
+
     @PostMapping("/")
     public ResponseEntity<Task> createTask(@RequestBody Task task) {
-        return ResponseEntity.ok(taskService.createNewTask(task));
+        Task newTask = taskService.createNewTask(task);
+        return ResponseEntity.ok(newTask);
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task task) {
-        task.setId(id);
-        return ResponseEntity.ok(taskService.updateTask(task));
+        Task updatedTask = taskService.updateTask(id, task);
+        return ResponseEntity.ok(updatedTask);
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> deleteTask(@PathVariable Long id) {
-    taskService.deleteTask(id);
-    return ResponseEntity.ok(true);
-    }   
+        taskService.deleteTask(id);
+        return ResponseEntity.ok(true);
+    }
 }
+
