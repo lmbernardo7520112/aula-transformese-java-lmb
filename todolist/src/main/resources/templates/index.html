@@ -15,7 +15,8 @@
     <!-- Task Creation Form -->
     <div class="row mb-4">
       <div class="col-md-6">
-        <h2>Create New Task</h2>
+        <h1>Todolist App</h1>
+        <h4>Create New Task</h4>
         <form action="/tasks" method="post" th:object="${newTask}">
           <div class="form-group">
             <label for="task">Task</label>
@@ -35,13 +36,13 @@
       <div class="col-md-12">
         <h2>Task List</h2>
 
-        <!-- Task Filters -->
-        <div class="mb-3">
-          <label for="filter">Filter by Status:</label>
-          <select class="form-control" id="filter" name="filter">
-            <option value="all">All</option>
-            <option value="completed">Completed</option>
-            <option value="incomplete">Incomplete</option>
+        <div class="form-group">
+          <label for="statusFilter">Filter by Status:</label>
+          <select id="statusFilter" class="form-control" onchange="applyStatusFilter(this.value)">
+            <option value="">All</option>
+            <option value="pending">Pending</option>
+            <option value="in_progress">In Progress</option>
+            <option value="concluded">Concluded</option>
           </select>
         </div>
 
@@ -51,32 +52,38 @@
             <tr>
               <th>ID</th>
               <th>Task</th>
-              <th>Completed</th>
+              <th>Status</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             <tr th:each="task : ${page.content}">
               <td th:text="${task.id}"></td>
               <td th:text="${task.task}"></td>
-              <td th:text="${task.completed} ? 'Yes' : 'No'"></td>
+              <td th:text="${task.status}"></td>
+              <td>
+                <!-- <a th:href="@{/tasks/{id}/edit(id=${task.id})}">Edit</a> -->
+                <a th:href="@{/tasks/{id}(id=${task.id})}" th:object="${task}" method="post">Edit</a>
+                <a th:href="@{/tasks/{id}/delete(id=${task.id})}" th:method="delete">Delete</a>
+              </td>
             </tr>
           </tbody>
         </table>
 
-        <!-- Pagination -->
+        <!-- Pagination  -->
         <nav aria-label="Task navigation">
           <ul class="pagination">
             <li class="page-item" th:classappend="${page.currentPage == 1} ? 'disabled'">
-              <a class="page-link" th:href="${page.getUrlForPage(1)}">First</a>
+              <a class="page-link" th:href="@{${page.getUrlForPage(1)}}">First</a>
             </li>
             <li class="page-item" th:classappend="${page.currentPage == 1} ? 'disabled'">
-              <a class="page-link" th:href="${page.getUrlForPage(page.currentPage - 1)}">Previous</a>
+              <a class="page-link" th:href="@{${page.getUrlForPage(page.currentPage - 1)}}">Previous</a>
             </li>
             <li class="page-item" th:classappend="${page.currentPage == page.totalPages} ? 'disabled'">
-              <a class="page-link" th:href="${page.getUrlForPage(page.currentPage + 1)}">Next</a>
+              <a class="page-link" th:href="@{${page.getUrlForPage(page.currentPage + 1)}}">Next</a>
             </li>
             <li class="page-item" th:classappend="${page.currentPage == page.totalPages} ? 'disabled'">
-              <a class="page-link" th:href="${page.getUrlForPage(page.totalPages)}">Last</a>
+              <a class="page-link" th:href="@{${page.getUrlForPage(page.totalPages)}}">Last</a>
             </li>
           </ul>
         </nav>
@@ -89,9 +96,21 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
+  <script>
+    function applyStatusFilter(status) {
+      var url = '/tasks';
+      if (status) {
+        url += '?status=' + status;
+      }
+      window.location.href = url;
+    }
+  </script>
+
 </body>
 
 </html>
+
+
 
 
 

@@ -10,6 +10,8 @@ public class Task {
     private Long id;
     private String task;
     private boolean completed;
+    private String status;
+    private String description;
 
     
   
@@ -39,4 +41,22 @@ public class Task {
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    
 }

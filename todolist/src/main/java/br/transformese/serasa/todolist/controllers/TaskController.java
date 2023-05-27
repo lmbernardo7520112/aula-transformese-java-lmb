@@ -1,10 +1,12 @@
 package br.transformese.serasa.todolist.controllers;
 
+import br.transformese.serasa.todolist.models.PageWrapper;
 import br.transformese.serasa.todolist.models.Task;
 import br.transformese.serasa.todolist.services.TaskService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,30 +24,14 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    /*@GetMapping("/")
-    public String getIndexPage(Model model, Pageable pageable) {
-        Page<Task> tasks = taskService.getAllTasks(pageable);
-        Task newTask = new Task();
-        model.addAttribute("tasks", tasks);
-        model.addAttribute("newTask", newTask);
-        return "index";
-    }
-
-    public String getIndexPage(Model model, Pageable pageable) {
-        Page<Task> tasks = taskService.getAllTasks(pageable);
-        Task newTask = new Task();
-        model.addAttribute("tasks", tasks.getContent());  // Pass the content of the tasks page
-        model.addAttribute("newTask", newTask);
-        model.addAttribute("currentPage", tasks.getNumber() + 1);
-        model.addAttribute("totalPages", tasks.getTotalPages());
-        return "index";
-    }*/
-
     @GetMapping("/")
-    public String getIndexPage(Model model, Pageable pageable) {
+    public String getIndexPage(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
+        int validPage = Math.max(0, page - 1); // Ensure page is not less than zero
+        Pageable pageable = PageRequest.of(validPage, size);
         Page<Task> tasks = taskService.getAllTasks(pageable);
         Task newTask = new Task();
-        model.addAttribute("tasks", tasks.getContent()); // Pass the task content to the model
+        PageWrapper<Task> pageWrapper = new PageWrapper<>(tasks, "/tasks/");
+        model.addAttribute("page", pageWrapper);
         model.addAttribute("newTask", newTask);
         return "index";
     }
@@ -56,29 +42,39 @@ public class TaskController {
         return ResponseEntity.ok(tasks);
     }
 
-    /*@PostMapping("/")
-    public ResponseEntity<Task> createTask(@RequestBody Task task) {
-        Task newTask = taskService.createNewTask(task);
-        return ResponseEntity.ok(newTask);
-    }*/
-
-    @PostMapping("")
+    @PostMapping
     public String createTask(@ModelAttribute("newTask") Task task) {
         taskService.createNewTask(task);
-        return "redirect:/";
+        return "redirect:/tasks/";
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task task) {
-        Task updatedTask = taskService.updateTask(id, task);
-        return ResponseEntity.ok(updatedTask);
+    /*@PutMapping("/{id}/edit")
+    public String updateTask(@PathVariable Long id, @RequestBody Task task) {
+       taskService.updateTask(id, task);
+        return "edit";
+    }*/
+
+    @GetMapping("/{id}/edit")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Task task = taskService.findTaskById(id);
+        model.addAttribute("task", task);
+        return "edit";
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteTask(@PathVariable Long id) {
+    /*@PutMapping("/{id}/edit")
+    public String updateTask(@PathVariable Long id, @ModelAttribute("task") Task task) {
+        taskService.updateTask(id, task);
+        return "redirect:/tasks/";
+    }*/
+
+    @GetMapping("/{id}/delete")
+    public String deleteTask(@PathVariable Long id) {
         taskService.deleteTask(id);
-        return ResponseEntity.ok(true);
+        return "redirect:/tasks/";
     }
 }
+
+
+
 
 
