@@ -49,14 +49,10 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
+
     public Task updateTask(Long id, Task task) {
-        Task existingTask = findTaskById(id);
-        if (existingTask != null) {
-            existingTask.setTask(task.getTask());
-            existingTask.setCompleted(task.isCompleted());
-            return taskRepository.save(existingTask);
-        }
-        return null;
+        return taskRepository.save(task);
     }
+    
 }
 

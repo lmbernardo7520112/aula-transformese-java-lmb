@@ -10,7 +10,9 @@ public class Task {
     private Long id;
     private String task;
     private boolean completed;
+    @Column
     private String status;
+    @Column
     private String description;
 
     

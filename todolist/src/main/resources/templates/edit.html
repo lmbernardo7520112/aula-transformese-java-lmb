@@ -23,7 +23,7 @@
         <!--<form th:action="@{'/api/v1/tasks/' + ${task.id} + '/'}" th:object="${task}" method="post"> 
         <form th:action="@{'/api/v1/tasks/' + ${task.id}}" th:object="${task}" method="post"> -->
         <form th:action="@{/tasks/{id}(id=${task.id})}" th:object="${task}" method="post">
-
+            <input type="hidden" th:field="*{id}" readonly="readonly">
             <div class="form-group">
                 <label for="Id">Id:</label>
                 <input type="text" id="task" class="form-control" th:field="*{id}" required>
@@ -31,7 +31,7 @@
 
             <div class="form-group">
                 <label for="task">Task:</label>
-                <input type="text" id="task" class="form-control" th:field="*{task}" required>
+                <input type="text" id="task" class="form-control" th:field="*{Task}" required>
                 <p th:if="${#fields.hasErrors('task')}" th:errors="*{task}" class="text-danger"></p>
             </div>
 

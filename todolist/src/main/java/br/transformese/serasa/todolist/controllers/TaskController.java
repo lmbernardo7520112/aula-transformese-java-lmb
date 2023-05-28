@@ -61,11 +61,27 @@ public class TaskController {
         return "edit";
     }
 
+    
     /*@PutMapping("/{id}/edit")
     public String updateTask(@PathVariable Long id, @ModelAttribute("task") Task task) {
         taskService.updateTask(id, task);
         return "redirect:/tasks/";
     }*/
+
+    @PostMapping("/{id}")
+    public String updateTask(@PathVariable("id") Long id, @ModelAttribute("task") Task updatedTask) {
+        Task existingTask = taskService.findTaskById(id);
+            if (existingTask == null) {
+                throw new IllegalArgumentException("Task not found");
+            }
+                existingTask.setTask(updatedTask.getTask());
+                existingTask.setCompleted(updatedTask.isCompleted());
+                existingTask.setStatus(updatedTask.getStatus());
+                existingTask.setDescription(updatedTask.getDescription());
+                taskService.updateTask(id, existingTask); 
+                return "redirect:/tasks/";
+    }
+
 
     @GetMapping("/{id}/delete")
     public String deleteTask(@PathVariable Long id) {

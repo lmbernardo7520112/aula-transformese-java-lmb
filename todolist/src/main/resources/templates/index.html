@@ -62,8 +62,8 @@
               <td th:text="${task.task}"></td>
               <td th:text="${task.status}"></td>
               <td>
-                <!-- <a th:href="@{/tasks/{id}/edit(id=${task.id})}">Edit</a> -->
-                <a th:href="@{/tasks/{id}(id=${task.id})}" th:object="${task}" method="post">Edit</a>
+                 <a th:href="@{/tasks/{id}/edit(id=${task.id})}">Edit</a> |
+                <!--<a th:href="@{/tasks/{id}(id=${task.id})}" th:object="${task}" method="post">Edit</a>-->
                 <a th:href="@{/tasks/{id}/delete(id=${task.id})}" th:method="delete">Delete</a>
               </td>
             </tr>
