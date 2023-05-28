@@ -37,12 +37,17 @@
         <h2>Task List</h2>
 
         <div class="form-group">
-          <label for="statusFilter">Filter by Status:</label>
+          <!-- <select id="statusFilter" class="form-control" onchange="applyStatusFilter(this.value)">
+            <option value="">All</option>
+            <option value="pending" th:selected="${param.status == 'pending'}">Pending</option>
+            <option value="in_progress" th:selected="${param.status == 'in_progress'}">In Progress</option>
+            <option value="concluded" th:selected="${param.status == 'concluded'}">Concluded</option>
+          </select> -->
           <select id="statusFilter" class="form-control" onchange="applyStatusFilter(this.value)">
             <option value="">All</option>
-            <option value="pending">Pending</option>
-            <option value="in_progress">In Progress</option>
-            <option value="concluded">Concluded</option>
+            <option value="pending" th:selected="${param.status == 'pending'}">Pending</option>
+            <option value="in_progress" th:selected="${param.status == 'in_progress'}">In Progress</option>
+            <option value="concluded" th:selected="${param.status == 'concluded'}">Concluded</option>
           </select>
         </div>
 
@@ -98,7 +103,7 @@
 
   <script>
     function applyStatusFilter(status) {
-      var url = '/tasks';
+      var url = window.location.pathname;;
       if (status) {
         url += '?status=' + status;
       }

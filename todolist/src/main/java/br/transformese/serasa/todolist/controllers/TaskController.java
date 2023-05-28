@@ -25,6 +25,31 @@ public class TaskController {
     }
 
     @GetMapping("/")
+    public String getIndexPage(
+        @RequestParam(required = false, defaultValue = "") String status,
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "5") int size,
+        Model model
+) {
+    int validPage = Math.max(0, page - 1); // Ensure page is not less than zero
+    Pageable pageable = PageRequest.of(validPage, size);
+    Page<Task> tasks;
+
+    if (!status.isEmpty()) {
+        tasks = taskService.getTasksByStatus(status, pageable);
+    } else {
+        tasks = taskService.getAllTasks(pageable);
+    }
+
+    Task newTask = new Task();
+    PageWrapper<Task> pageWrapper = new PageWrapper<>(tasks, "/tasks/");
+    model.addAttribute("page", pageWrapper);
+    model.addAttribute("newTask", newTask);
+    return "index";
+}
+
+
+    /*@GetMapping("/")
     public String getIndexPage(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
         int validPage = Math.max(0, page - 1); // Ensure page is not less than zero
         Pageable pageable = PageRequest.of(validPage, size);
@@ -34,12 +59,32 @@ public class TaskController {
         model.addAttribute("page", pageWrapper);
         model.addAttribute("newTask", newTask);
         return "index";
-    }
+    }*/
 
-    @GetMapping
+    /*@GetMapping
     public ResponseEntity<Page<Task>> getAllTasks(Pageable pageable) {
         Page<Task> tasks = taskService.getAllTasks(pageable);
         return ResponseEntity.ok(tasks);
+    }*/
+
+    @GetMapping
+    public String getAllTasks(@RequestParam(required = false) String status, Pageable pageable, Model model) {
+        Page<Task> tasks;
+            if (status != null && !status.isEmpty()) {
+                tasks = taskService.getTasksByStatus(status, pageable);
+            } else {
+                tasks = taskService.getAllTasks(pageable);
+    }
+
+    Task newTask = new Task();
+    PageWrapper<Task> pageWrapper = new PageWrapper<>(tasks, "/tasks/");
+    model.addAttribute("page", pageWrapper);
+    model.addAttribute("newTask", newTask);
+    return "index";
+}
+
+    private void getTasksByStatus(String status, Pageable pageable) {
+        // TODO
     }
 
     @PostMapping
