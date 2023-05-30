@@ -1,6 +1,6 @@
 ![image](https://github.com/lmbernardo7520112/aula-transformese-java-lmb/assets/56771959/bc2812bd-5de4-4299-bb9c-d6a955c88cda)
 
-## <h1 align="center"> Programe-se/Serasa 
+## <h1 align="center"> Programe-se/Serasa/Whise Hands
 </h1>
 
 Bem-vindo ao meu repositório oficial do programa Programe-se/Serasa! Aqui você encontrará todas as atividades e projetos que desenvolvi durante o curso de Java, incluindo o emocionante projeto final, o incrível aplicativo TodoList.
