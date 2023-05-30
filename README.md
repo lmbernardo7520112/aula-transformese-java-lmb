@@ -10,9 +10,12 @@ O Programe-se-Serasa é um programa criado especialmente para quem deseja aprend
 
 ## Por que participo do Programe-se/Serasa?
 
-# Experiência prática: Durante o curso, tenho a oportunidade de aplicar na prática os conhecimentos teóricos adquiridos, desenvolvendo projetos e resolvendo desafios de programação. Isso me permite obter confiança e aprimorar minhas habilidades.
-# Avaliação final emocionante: O aplicativo TodoList foi a avaliação final do curso. Foi minha chance de mostrar tudo o que aprendi. Criei uma solução incrível para o desafio final.
-# Acesso a recursos exclusivos: Além das atividades do curso, tive acesso a materiais de apoio, tutoriais e dicas valiosas que vão além do currículo básico. Sinto que evolui muito! Desjo continuar e acredito que continuando a me dedicar me tornarei um programador excepcional.
+# Experiência prática: 
+Durante o curso, tenho a oportunidade de aplicar na prática os conhecimentos teóricos adquiridos, desenvolvendo projetos e resolvendo desafios de programação. Isso me permite obter confiança e aprimorar minhas habilidades.
+# Avaliação final emocionante:
+O aplicativo TodoList foi a avaliação final do curso. Foi minha chance de mostrar tudo o que aprendi. Criei uma solução incrível para o desafio final.
+# Acesso a recursos exclusivos:
+Além das atividades do curso, tive acesso a materiais de apoio, tutoriais e dicas valiosas que vão além do currículo básico. Sinto que evolui muito! Desjo continuar e acredito que continuando a me dedicar me tornarei um programador excepcional.
 
 ## O Projeto TodoList
 O destaque deste repositório é o aplicativo TodoList, que foi desenvolvido como parte da avaliação final do curso de Java. Este projeto demonstra minha capacidade em criar uma aplicação funcional e intuitiva. Criei o App TodoList para gerenciar tarefas diárias de forma organizada, usando uma interface amigável e fácil de usar.
