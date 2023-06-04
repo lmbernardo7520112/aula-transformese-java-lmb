@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
+//import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,42 +30,26 @@ public class TaskController {
         @RequestParam(defaultValue = "0") int page,
         @RequestParam(defaultValue = "5") int size,
         Model model
-) {
-    int validPage = Math.max(0, page - 1); // Ensure page is not less than zero
-    Pageable pageable = PageRequest.of(validPage, size);
-    Page<Task> tasks;
-
-    if (!status.isEmpty()) {
-        tasks = taskService.getTasksByStatus(status, pageable);
-    } else {
-        tasks = taskService.getAllTasks(pageable);
-    }
-
-    Task newTask = new Task();
-    PageWrapper<Task> pageWrapper = new PageWrapper<>(tasks, "/tasks/");
-    model.addAttribute("page", pageWrapper);
-    model.addAttribute("newTask", newTask);
-    return "index";
-}
-
-
-    /*@GetMapping("/")
-    public String getIndexPage(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
+    ) {
         int validPage = Math.max(0, page - 1); // Ensure page is not less than zero
         Pageable pageable = PageRequest.of(validPage, size);
-        Page<Task> tasks = taskService.getAllTasks(pageable);
+        Page<Task> tasks;
+
+        if (!status.isEmpty()) {
+            tasks = taskService.getTasksByStatus(status, pageable);
+        } else {
+            tasks = taskService.getAllTasks(pageable);
+        }
+
         Task newTask = new Task();
         PageWrapper<Task> pageWrapper = new PageWrapper<>(tasks, "/tasks/");
         model.addAttribute("page", pageWrapper);
         model.addAttribute("newTask", newTask);
-        return "index";
-    }*/
+        model.addAttribute("status", status);
 
-    /*@GetMapping
-    public ResponseEntity<Page<Task>> getAllTasks(Pageable pageable) {
-        Page<Task> tasks = taskService.getAllTasks(pageable);
-        return ResponseEntity.ok(tasks);
-    }*/
+        return "index";
+    }
+
 
     @GetMapping
     public String getAllTasks(@RequestParam(required = false) String status, Pageable pageable, Model model) {
@@ -76,16 +60,16 @@ public class TaskController {
                 tasks = taskService.getAllTasks(pageable);
     }
 
-    Task newTask = new Task();
-    PageWrapper<Task> pageWrapper = new PageWrapper<>(tasks, "/tasks/");
-    model.addAttribute("page", pageWrapper);
-    model.addAttribute("newTask", newTask);
-    return "index";
-}
-
-    private void getTasksByStatus(String status, Pageable pageable) {
-        // TODO
+        Task newTask = new Task();
+        PageWrapper<Task> pageWrapper = new PageWrapper<>(tasks, "/tasks/");
+        model.addAttribute("page", pageWrapper);
+        model.addAttribute("newTask", newTask);
+        return "index";
     }
+
+    /*private void getTasksByStatus(String status, Pageable pageable) {
+       
+    }*/
 
     @PostMapping
     public String createTask(@ModelAttribute("newTask") Task task) {
@@ -93,11 +77,7 @@ public class TaskController {
         return "redirect:/tasks/";
     }
 
-    /*@PutMapping("/{id}/edit")
-    public String updateTask(@PathVariable Long id, @RequestBody Task task) {
-       taskService.updateTask(id, task);
-        return "edit";
-    }*/
+    
 
     @GetMapping("/{id}/edit")
     public String showEditForm(@PathVariable Long id, Model model) {
@@ -106,12 +86,7 @@ public class TaskController {
         return "edit";
     }
 
-    
-    /*@PutMapping("/{id}/edit")
-    public String updateTask(@PathVariable Long id, @ModelAttribute("task") Task task) {
-        taskService.updateTask(id, task);
-        return "redirect:/tasks/";
-    }*/
+
 
     @PostMapping("/{id}")
     public String updateTask(@PathVariable("id") Long id, @ModelAttribute("task") Task updatedTask) {

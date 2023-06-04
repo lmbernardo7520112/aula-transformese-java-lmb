@@ -29,21 +29,7 @@ public class TaskService {
         return taskRepository.findAll(pageable);
     }
 
-    /*public Page<Task> getAllCompletedTasks(Pageable pageable) {
-        return taskRepository.findByCompletedTrue(pageable);
-    }
-
-    public Page<Task> getAllIncompleteTasks(Pageable pageable) {
-        return taskRepository.findByCompletedFalse(pageable);
-    }
-
-    public Page<Task> getAllTasksCompleted(Pageable pageable) {
-        return taskRepository.findByCompletedTrue(pageable);
-    }
-
-    public Page<Task> getAllTasksIncomplete(Pageable pageable) {
-        return taskRepository.findByCompletedFalse(pageable);
-    }*/
+    
 
     public Task findTaskById(Long id) {
         return taskRepository.findById(id).orElse(null);
@@ -57,10 +43,6 @@ public class TaskService {
     public Task updateTask(Long id, Task task) {
         return taskRepository.save(task);
     }
-
-    /*public Page<Task> getTasksByStatus(String status, Pageable pageable) {
-        return null;
-    }*/
 
     public Page<Task> getTasksByStatus(String status, Pageable pageable) {
         //return (Page<Task>) taskRepository.findByStatus(status);

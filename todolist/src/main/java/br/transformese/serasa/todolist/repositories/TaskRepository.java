@@ -18,13 +18,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     Task findByTask(String task);
 
-    List<Task> findByStatus(String status);
-    /*static List<Task> getAllTasks(Pageable pageable) {
-        return null;
-    }*/
-
-    /*Page<Task> findByStatus(String status, Pageable pageable);*/
-    
+    List<Task> findByStatus(String status);  
 
 }
 

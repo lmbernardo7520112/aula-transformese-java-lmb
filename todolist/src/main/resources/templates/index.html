@@ -37,17 +37,11 @@
         <h2>Task List</h2>
 
         <div class="form-group">
-          <!-- <select id="statusFilter" class="form-control" onchange="applyStatusFilter(this.value)">
-            <option value="">All</option>
-            <option value="pending" th:selected="${param.status == 'pending'}">Pending</option>
-            <option value="in_progress" th:selected="${param.status == 'in_progress'}">In Progress</option>
-            <option value="concluded" th:selected="${param.status == 'concluded'}">Concluded</option>
-          </select> -->
           <select id="statusFilter" class="form-control" onchange="applyStatusFilter(this.value)">
             <option value="">All</option>
-            <option value="pending" th:selected="${param.status == 'pending'}">Pending</option>
-            <option value="in_progress" th:selected="${param.status == 'in_progress'}">In Progress</option>
-            <option value="concluded" th:selected="${param.status == 'concluded'}">Concluded</option>
+            <option value="pending" th:selected="${status == 'pending'}">Pending</option>
+            <option value="in_progress" th:selected="${status == 'in_progress'}">In Progress</option>
+            <option value="concluded" th:selected="${status == 'concluded'}">Concluded</option>
           </select>
         </div>
 
@@ -68,7 +62,6 @@
               <td th:text="${task.status}"></td>
               <td>
                  <a th:href="@{/tasks/{id}/edit(id=${task.id})}">Edit</a> |
-                <!--<a th:href="@{/tasks/{id}(id=${task.id})}" th:object="${task}" method="post">Edit</a>-->
                 <a th:href="@{/tasks/{id}/delete(id=${task.id})}" th:method="delete">Delete</a>
               </td>
             </tr>

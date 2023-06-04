@@ -34,7 +34,6 @@ public class PageWrapper<T> {
         return getCurrentPage() == page;
     }
 
-    // Add additional methods as needed
 
 }
 
