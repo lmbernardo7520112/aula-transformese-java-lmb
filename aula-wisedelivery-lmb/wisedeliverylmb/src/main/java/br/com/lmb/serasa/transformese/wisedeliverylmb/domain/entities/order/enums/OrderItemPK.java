@@ -1,10 +1,9 @@
 package br.com.lmb.serasa.transformese.wisedeliverylmb.domain.entities.order.enums;
 
-import javax.persistence.Embeddable;
-import javax.persistence.ManyToOne;
-
 import br.com.lmb.serasa.transformese.wisedeliverylmb.domain.entities.order.Order;
 
+import javax.persistence.Embeddable;
+import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
