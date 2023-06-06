@@ -1,6 +1,5 @@
 package br.com.lmb.serasa.transformese.wisedeliverylmb.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,30 +33,30 @@ public class ClientController {
 
     @GetMapping("form-cadastro")
     public String formCadastroCliente(Model model) {
-        model.addAttribute("cliente", new ClientDTO());
+        model.addAttribute("client", new ClientDTO());
         return "cliente-cadastro";
     }
 
     @PostMapping("/save")
-    public String salvarCliente(@ModelAttribute("cliente") @Valid ClientDTO cliente, BindingResult result) {
-        if (validator.validator(cliente)) {
-            log.error("Senha e confirmação não estão batendo: {}", cliente);
+    public String salvarCliente(@ModelAttribute("client") @Valid ClientDTO client, BindingResult result) {
+        if (validator.validator(client)) {
+            log.error("Senha e confirmação não estão batendo: {}", client);
             throw new SenhaInvalidaException("Senha e confirmação não estão batendo");
         }
-        getClienteService().salvar(cliente);
-        log.info("Cliente salvo. Nome: [{}]", cliente.getNome());
+        getClienteService().salvar(client);
+        log.info("Cliente salvo. Nome: [{}]", client.getNome());
         return "cliente-cadastro-ok";
     }
 
     @GetMapping("/login")
     public String telaLogin(Model model) {
-        model.addAttribute("cliente", new ClientLoginDTO());
+        model.addAttribute("client", new ClientLoginDTO());
         return "login";
     }
 
     @PostMapping("/logar")
-    public String login(@ModelAttribute("cliente") ClienteLoginDTO cliente) {
-        if (!getClienteService().login(cliente)) {
+    public String login(@ModelAttribute("client") ClientLoginDTO client) {
+        if (!getClienteService().login(client)) {
             return "login";
         }
         return "cliente-home";
