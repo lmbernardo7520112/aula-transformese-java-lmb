@@ -1,5 +1,7 @@
 package br.com.lmb.serasa.transformese.wisedeliverylmb.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,27 +10,26 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.com.gva.wisedelivery.dominio.dto.restaurantedto.RestauranteDTO;
-import br.com.gva.wisedelivery.service.RestauranteService;
-import jakarta.validation.Valid;
+import br.com.lmb.serasa.transformese.wisedeliverylmb.domain.dto.restaurantdto.RestaurantDTO;
+import br.com.lmb.serasa.transformese.wisedeliverylmb.service.impl.RestaurantService;
 
 @Controller
-@RequestMapping("restaurantes")
+@RequestMapping("restaurants")
 public class RestaurantController {
 
     @Autowired
-    private RestauranteService restauranteService;
+    private RestaurantService restaurantService;
 
     @GetMapping("form-cadastro")
     String formCadastroRestaurante(Model model) {
-        model.addAttribute("categorias", restauranteService.pegaTodasAsCategorias());
-        model.addAttribute("restaurante", new RestauranteDTO());
+        model.addAttribute("categorias", restaurantService.getAllCategories());
+        model.addAttribute("restaurante", new RestaurantDTO());
         return "restaurante-cadastro";
     }
 
     @PostMapping("salvar")
-    public String salvarRestaurante(@ModelAttribute("restaurante") @Valid RestauranteDTO dto) {
-        restauranteService.salvar(dto);
+    public String salvarRestaurante(@ModelAttribute("restaurante") @Valid RestaurantDTO dto) {
+        restaurantService.save(dto);
         return "restaurante-cadastro";
     }
 }

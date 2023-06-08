@@ -1,17 +1,19 @@
 package br.com.lmb.serasa.transformese.wisedeliverylmb.controller.validator.impl;
 
-
-
 import org.springframework.stereotype.Component;
 
-import br.com.gva.wisedelivery.controller.validator.Validator;
-import br.com.gva.wisedelivery.dominio.dto.clientedto.ClienteDTO;
+import br.com.lmb.serasa.transformese.wisedeliverylmb.controller.validator.Validator;
+import br.com.lmb.serasa.transformese.wisedeliverylmb.domain.dto.clientdto.ClientDTO;
 
 @Component
-public class PasswordConfirmValidatorImpl implements Validator<ClienteDTO> {
+public class PasswordConfirmValidatorImpl implements Validator<ClientDTO> {
 
-    @Override
-    public boolean validator(ClienteDTO cliente) {
-        return !cliente.getSenha().equals(cliente.getConfirmaSenha());
-    }
+  
+	@Override
+	public boolean validator(ClientDTO client) {
+		
+		return !client.getPassword().equals(client.getConfirmPassword());
+    
+	}
+
 }

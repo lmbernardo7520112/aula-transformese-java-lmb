@@ -1,15 +1,19 @@
 package br.com.lmb.serasa.transformese.wisedeliverylmb.domain.entities.order;
-
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-
 import br.com.lmb.serasa.transformese.wisedeliverylmb.domain.entities.order.enums.OrderItemPK;
+import br.com.lmb.serasa.transformese.wisedeliverylmb.domain.entities.restaurant.MenuItem;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.math.BigDecimal;
+
+
 
 @Builder
 @NoArgsConstructor

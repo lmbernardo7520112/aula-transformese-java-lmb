@@ -1,13 +1,12 @@
 package br.com.lmb.serasa.transformese.wisedeliverylmb.domain.entities.order.enums;
-
 import br.com.lmb.serasa.transformese.wisedeliverylmb.domain.entities.order.Order;
-
-import javax.persistence.Embeddable;
-import javax.persistence.ManyToOne;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,5 +17,5 @@ public class OrderItemPK {
     @ManyToOne
     private Order order;
 
-    private Integer ordem;
+    private Integer priorityOrder;
 }

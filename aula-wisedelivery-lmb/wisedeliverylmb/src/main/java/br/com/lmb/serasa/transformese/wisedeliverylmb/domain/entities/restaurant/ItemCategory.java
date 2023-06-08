@@ -2,14 +2,12 @@ package br.com.lmb.serasa.transformese.wisedeliverylmb.domain.entities.restauran
 
 import java.util.List;
 
-import javax.persistence.GenerationType;
-import javax.persistence.ManyToMany;
-
-import javax.persistence.GeneratedValue;
-
-import javax.persistence.Id;
-
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.ManyToMany;
 import lombok.EqualsAndHashCode;
+
+
 
 public class ItemCategory {
     @Id
@@ -19,7 +17,7 @@ public class ItemCategory {
     private String name;
     private String image;
 
-    @ManyToMany(mappedBy = "categorias")
+    @ManyToMany(mappedBy = "categories")
     private List<MenuItem> itens;
 
 }

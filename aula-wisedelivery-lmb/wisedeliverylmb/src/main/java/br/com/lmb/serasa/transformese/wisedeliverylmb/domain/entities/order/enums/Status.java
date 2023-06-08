@@ -1,5 +1,7 @@
 package br.com.lmb.serasa.transformese.wisedeliverylmb.domain.entities.order.enums;
 
+import lombok.Getter;
+
 public enum Status {
     CookingTime(1, "Being prepared", false),
     Delivery(2, "Out for delivery", false),
